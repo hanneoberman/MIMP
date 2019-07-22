@@ -43,5 +43,12 @@ summary(fit) #same!
 # 13. MI
 imp <- mice(nhanes) # perform default multiple imp: m=5, print = T
 imp #look at imp summary
-attributes(imp) #
+attributes(imp) # class = mids = multiply imputed data set 
+imp$data # original data
+imp$imp # imputations
 
+# 14. Look at completed data
+c3 <- complete(imp, 3) 
+md.pattern(c3) # it is indeed complete
+c.long <- complete(imp, "long") # export imputed data under each other 
+c.broad <- complete(imp, "broad") # export next to each other
