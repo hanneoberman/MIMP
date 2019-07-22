@@ -11,4 +11,41 @@ $Y_{obs}$ should be 1 in $P(R|Y_{obs}, \psi)$: it only depends on a constant, li
 
 ### Slide 23
 
-The $\theta$'s are the variables of scientific interest. The missing data model is generally not. If the two models are independent, we say that the missingness is ignoable.
+The $\theta$'s are the variables of scientific interest. The missing data model is generally not. If the two models are independent, we say that the missingness is ignorable.
+
+# Session C
+
+### Slide 39
+
+LOCF means last observation carried forward.
+
+### Slides 46-56
+
+- $Q$ is a quantity of scientific interest in the population.
+
+- $\hat{Q}$ is the estimate that accounts for the sampling uncertainty
+
+- $\hat{Q}_l$ is the estimate of the $l$-th repeated imputation (contains k parameters and is represented as a k × 1 column vector)
+
+- $\bar{Q}$ is the pooled estimate and accounts for the sampling and missing data uncertainty; it's the average of all $\hat{Q}_l$s 
+
+- $\bar{U}_l$ is the is the variance in the estimate, more specifically the variance-covariance matrix of $\hat{Q}$ obtained for the $l$-th imputation
+
+- $\bar{U}$ is the average of the complete-data variances: $\frac{1}{m} \sum_{\ell=1}^{m} \bar{U}_{\ell}$. It's the variance caused by the fact that we are taking a sample
+rather than the entire population. This is the conventional
+statistical measure of variability.
+
+- $B$ is the vVariance between the m complete-data estimates: $\frac{1}{m-1} \sum_{\ell=1}^{m}\left(\hat{Q}_{\ell}-\bar{Q}\right)\left(\hat{Q}_{\ell}-\bar{Q}\right)^{\prime}$. It's the extra variance caused by the fact that there are missing
+values in the sample.
+
+- $T$ is the total variance: $\bar{U}+B+\frac{B}{m}$ = 
+$\bar{U}+\left(1+\frac{1}{m}\right) B$, where $\frac{B}{m}$ is called the simulation error: the extra simulation variance caused by the fact that $\bar{Q}$ itself is based on finite m
+
+- $\lambda$ is the proportion of the variation attributable to the missing data: $\frac{B+\frac{B}{m}}{T}$.
+
+- $r$ is the relative increase in variance due to nonresponse: $\frac{B+\frac{B}{m}}{\overline{U}} = \frac{\lambda}{1-\lambda}$. 
+
+- $\gamma$ is the fraction of information about  
+Q missing due to nonresponse. It's similar to $\lambda$, but adjusted for the finite number of imputations. You need the adjusted degrees of freedom to compute it, which is complicated, see https://stefvanbuuren.name/fimd/sec-whyandwhen.html.
+
+

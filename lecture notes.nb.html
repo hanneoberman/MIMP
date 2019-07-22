@@ -1758,12 +1758,36 @@ summary {
 </div>
 <div id="slide-23" class="section level3">
 <h3>Slide 23</h3>
-<p>The <span class="math inline">\(\theta\)</span>’s are the variables of scientific interest. The missing data model is generally not. If the two models are independent, we say that the missingness is ignoable.</p>
+<p>The <span class="math inline">\(\theta\)</span>’s are the variables of scientific interest. The missing data model is generally not. If the two models are independent, we say that the missingness is ignorable.</p>
+</div>
+</div>
+<div id="session-c" class="section level1">
+<h1>Session C</h1>
+<div id="slide-39" class="section level3">
+<h3>Slide 39</h3>
+<p>LOCF means last observation carried forward.</p>
+</div>
+<div id="slides-46-56" class="section level3">
+<h3>Slides 46-56</h3>
+<ul>
+<li><p><span class="math inline">\(Q\)</span> is a quantity of scientific interest in the population.</p></li>
+<li><p><span class="math inline">\(\hat{Q}\)</span> is the estimate that accounts for the sampling uncertainty</p></li>
+<li><p><span class="math inline">\(\hat{Q}_l\)</span> is the estimate of the <span class="math inline">\(l\)</span>-th repeated imputation (contains k parameters and is represented as a k × 1 column vector)</p></li>
+<li><p><span class="math inline">\(\bar{Q}\)</span> is the pooled estimate and accounts for the sampling and missing data uncertainty; it’s the average of all <span class="math inline">\(\hat{Q}_l\)</span>s</p></li>
+<li><p><span class="math inline">\(\bar{U}_l\)</span> is the is the variance in the estimate, more specifically the variance-covariance matrix of <span class="math inline">\(\hat{Q}\)</span> obtained for the <span class="math inline">\(l\)</span>-th imputation</p></li>
+<li><p><span class="math inline">\(\bar{U}\)</span> is the average of the complete-data variances: <span class="math inline">\(\frac{1}{m} \sum_{\ell=1}^{m} \bar{U}_{\ell}\)</span>. It’s the variance caused by the fact that we are taking a sample rather than the entire population. This is the conventional statistical measure of variability.</p></li>
+<li><p><span class="math inline">\(B\)</span> is the vVariance between the m complete-data estimates: <span class="math inline">\(\frac{1}{m-1} \sum_{\ell=1}^{m}\left(\hat{Q}_{\ell}-\bar{Q}\right)\left(\hat{Q}_{\ell}-\bar{Q}\right)^{\prime}\)</span>. It’s the extra variance caused by the fact that there are missing values in the sample.</p></li>
+<li><p><span class="math inline">\(T\)</span> is the total variance: <span class="math inline">\(\bar{U}+B+\frac{B}{m}\)</span> = <span class="math inline">\(\bar{U}+\left(1+\frac{1}{m}\right) B\)</span>, where <span class="math inline">\(\frac{B}{m}\)</span> is called the simulation error: the extra simulation variance caused by the fact that <span class="math inline">\(\bar{Q}\)</span> itself is based on finite m</p></li>
+<li><p><span class="math inline">\(\lambda\)</span> is the proportion of the variation attributable to the missing data: <span class="math inline">\(\frac{B+\frac{B}{m}}{T}\)</span>.</p></li>
+<li><p><span class="math inline">\(r\)</span> is the relative increase in variance due to nonresponse: <span class="math inline">\(\frac{B+\frac{B}{m}}{\overline{U}} = \frac{\lambda}{1-\lambda}\)</span>.</p></li>
+<li><p><span class="math inline">\(\gamma\)</span> is the fraction of information about<br />
+Q missing due to nonresponse. It’s similar to <span class="math inline">\(\lambda\)</span>, but adjusted for the finite number of imputations. You need the adjusted degrees of freedom to compute it, which is complicated, see <a href="https://stefvanbuuren.name/fimd/sec-whyandwhen.html" class="uri">https://stefvanbuuren.name/fimd/sec-whyandwhen.html</a>.</p></li>
+</ul>
 <!-- rnb-text-end -->
 </div>
 </div>
 
-<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1JTVAgTGVjdHVyZXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIFNlc3Npb24gQQ0KDQojIyMgU2xpZGUgMjANCg0KJFlfe29ic30kIHNob3VsZCBiZSAxIGluICRQKFJ8WV97b2JzfSwgXHBzaSkkOiBpdCBvbmx5IGRlcGVuZHMgb24gYSBjb25zdGFudCwgbGlrZSAyLzcgaW4gdGhlIGV4YW1wbGUuIFNvLCAkUChSfDEsXHBzaT1cZnJhY3syfXs3fSkkLg0KDQojIyMgU2xpZGUgMjMNCg0KVGhlICRcdGhldGEkJ3MgYXJlIHRoZSB2YXJpYWJsZXMgb2Ygc2NpZW50aWZpYyBpbnRlcmVzdC4gVGhlIG1pc3NpbmcgZGF0YSBtb2RlbCBpcyBnZW5lcmFsbHkgbm90LiBJZiB0aGUgdHdvIG1vZGVscyBhcmUgaW5kZXBlbmRlbnQsIHdlIHNheSB0aGF0IHRoZSBtaXNzaW5nbmVzcyBpcyBpZ25vYWJsZS4=</div>
+<div id="rmd-source-code">LS0tDQp0aXRsZTogIk1JTVAgTGVjdHVyZXMiDQpvdXRwdXQ6IGh0bWxfbm90ZWJvb2sNCi0tLQ0KDQojIFNlc3Npb24gQQ0KDQojIyMgU2xpZGUgMjANCg0KJFlfe29ic30kIHNob3VsZCBiZSAxIGluICRQKFJ8WV97b2JzfSwgXHBzaSkkOiBpdCBvbmx5IGRlcGVuZHMgb24gYSBjb25zdGFudCwgbGlrZSAyLzcgaW4gdGhlIGV4YW1wbGUuIFNvLCAkUChSfDEsXHBzaT1cZnJhY3syfXs3fSkkLg0KDQojIyMgU2xpZGUgMjMNCg0KVGhlICRcdGhldGEkJ3MgYXJlIHRoZSB2YXJpYWJsZXMgb2Ygc2NpZW50aWZpYyBpbnRlcmVzdC4gVGhlIG1pc3NpbmcgZGF0YSBtb2RlbCBpcyBnZW5lcmFsbHkgbm90LiBJZiB0aGUgdHdvIG1vZGVscyBhcmUgaW5kZXBlbmRlbnQsIHdlIHNheSB0aGF0IHRoZSBtaXNzaW5nbmVzcyBpcyBpZ25vcmFibGUuDQoNCiMgU2Vzc2lvbiBDDQoNCiMjIyBTbGlkZSAzOQ0KDQpMT0NGIG1lYW5zIGxhc3Qgb2JzZXJ2YXRpb24gY2FycmllZCBmb3J3YXJkLg0KDQojIyMgU2xpZGVzIDQ2LTU2DQoNCi0gJFEkIGlzIGEgcXVhbnRpdHkgb2Ygc2NpZW50aWZpYyBpbnRlcmVzdCBpbiB0aGUgcG9wdWxhdGlvbi4NCg0KLSAkXGhhdHtRfSQgaXMgdGhlIGVzdGltYXRlIHRoYXQgYWNjb3VudHMgZm9yIHRoZSBzYW1wbGluZyB1bmNlcnRhaW50eQ0KDQotICRcaGF0e1F9X2wkIGlzIHRoZSBlc3RpbWF0ZSBvZiB0aGUgJGwkLXRoIHJlcGVhdGVkIGltcHV0YXRpb24gKGNvbnRhaW5zIGsgcGFyYW1ldGVycyBhbmQgaXMgcmVwcmVzZW50ZWQgYXMgYSBrIMOXIDEgY29sdW1uIHZlY3RvcikNCg0KLSAkXGJhcntRfSQgaXMgdGhlIHBvb2xlZCBlc3RpbWF0ZSBhbmQgYWNjb3VudHMgZm9yIHRoZSBzYW1wbGluZyBhbmQgbWlzc2luZyBkYXRhIHVuY2VydGFpbnR5OyBpdCdzIHRoZSBhdmVyYWdlIG9mIGFsbCAkXGhhdHtRfV9sJHMgDQoNCi0gJFxiYXJ7VX1fbCQgaXMgdGhlIGlzIHRoZSB2YXJpYW5jZSBpbiB0aGUgZXN0aW1hdGUsIG1vcmUgc3BlY2lmaWNhbGx5IHRoZSB2YXJpYW5jZS1jb3ZhcmlhbmNlIG1hdHJpeCBvZiAkXGhhdHtRfSQgb2J0YWluZWQgZm9yIHRoZSAkbCQtdGggaW1wdXRhdGlvbg0KDQotICRcYmFye1V9JCBpcyB0aGUgYXZlcmFnZSBvZiB0aGUgY29tcGxldGUtZGF0YSB2YXJpYW5jZXM6ICRcZnJhY3sxfXttfSBcc3VtX3tcZWxsPTF9XnttfSBcYmFye1V9X3tcZWxsfSQuIEl0J3MgdGhlIHZhcmlhbmNlIGNhdXNlZCBieSB0aGUgZmFjdCB0aGF0IHdlIGFyZSB0YWtpbmcgYSBzYW1wbGUNCnJhdGhlciB0aGFuIHRoZSBlbnRpcmUgcG9wdWxhdGlvbi4gVGhpcyBpcyB0aGUgY29udmVudGlvbmFsDQpzdGF0aXN0aWNhbCBtZWFzdXJlIG9mIHZhcmlhYmlsaXR5Lg0KDQotICRCJCBpcyB0aGUgdlZhcmlhbmNlIGJldHdlZW4gdGhlIG0gY29tcGxldGUtZGF0YSBlc3RpbWF0ZXM6ICRcZnJhY3sxfXttLTF9IFxzdW1fe1xlbGw9MX1ee219XGxlZnQoXGhhdHtRfV97XGVsbH0tXGJhcntRfVxyaWdodClcbGVmdChcaGF0e1F9X3tcZWxsfS1cYmFye1F9XHJpZ2h0KV57XHByaW1lfSQuIEl0J3MgdGhlIGV4dHJhIHZhcmlhbmNlIGNhdXNlZCBieSB0aGUgZmFjdCB0aGF0IHRoZXJlIGFyZSBtaXNzaW5nDQp2YWx1ZXMgaW4gdGhlIHNhbXBsZS4NCg0KLSAkVCQgaXMgdGhlIHRvdGFsIHZhcmlhbmNlOiAkXGJhcntVfStCK1xmcmFje0J9e219JCA9IA0KJFxiYXJ7VX0rXGxlZnQoMStcZnJhY3sxfXttfVxyaWdodCkgQiQsIHdoZXJlICRcZnJhY3tCfXttfSQgaXMgY2FsbGVkIHRoZSBzaW11bGF0aW9uIGVycm9yOiB0aGUgZXh0cmEgc2ltdWxhdGlvbiB2YXJpYW5jZSBjYXVzZWQgYnkgdGhlIGZhY3QgdGhhdCAkXGJhcntRfSQgaXRzZWxmIGlzIGJhc2VkIG9uIGZpbml0ZSBtDQoNCi0gJFxsYW1iZGEkIGlzIHRoZSBwcm9wb3J0aW9uIG9mIHRoZSB2YXJpYXRpb24gYXR0cmlidXRhYmxlIHRvIHRoZSBtaXNzaW5nIGRhdGE6ICRcZnJhY3tCK1xmcmFje0J9e219fXtUfSQuDQoNCi0gJHIkIGlzIHRoZSByZWxhdGl2ZSBpbmNyZWFzZSBpbiB2YXJpYW5jZSBkdWUgdG8gbm9ucmVzcG9uc2U6ICRcZnJhY3tCK1xmcmFje0J9e219fXtcb3ZlcmxpbmV7VX19ID0gXGZyYWN7XGxhbWJkYX17MS1cbGFtYmRhfSQuIA0KDQotICRcZ2FtbWEkIGlzIHRoZSBmcmFjdGlvbiBvZiBpbmZvcm1hdGlvbiBhYm91dCAgDQpRIG1pc3NpbmcgZHVlIHRvIG5vbnJlc3BvbnNlLiBJdCdzIHNpbWlsYXIgdG8gJFxsYW1iZGEkLCBidXQgYWRqdXN0ZWQgZm9yIHRoZSBmaW5pdGUgbnVtYmVyIG9mIGltcHV0YXRpb25zLiBZb3UgbmVlZCB0aGUgYWRqdXN0ZWQgZGVncmVlcyBvZiBmcmVlZG9tIHRvIGNvbXB1dGUgaXQsIHdoaWNoIGlzIGNvbXBsaWNhdGVkLCBzZWUgaHR0cHM6Ly9zdGVmdmFuYnV1cmVuLm5hbWUvZmltZC9zZWMtd2h5YW5kd2hlbi5odG1sLg0KDQoNCg==</div>
 
 
 
