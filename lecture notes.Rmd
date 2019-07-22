@@ -1,0 +1,14 @@
+---
+title: "MIMP Lectures"
+output: html_notebook
+---
+
+# Session A
+
+### Slide 20
+
+$Y_{obs}$ should be 1 in $P(R|Y_{obs}, \psi)$: it only depends on a constant, like 2/7 in the example. So, $P(R|1,\psi=\frac{2}{7})$.
+
+### Slide 23
+
+The $\theta$'s are the variables of scientific interest. The missing data model is generally not. If the two models are independent, we say that the missingness is ignoable.
