@@ -1,4 +1,4 @@
-# MIMP session F
+# MIMP session F by Hanne Oberman
 
 library(mice) # Data imputation
 library(dplyr) # Data manipulation

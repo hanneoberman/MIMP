@@ -41,12 +41,11 @@ values in the sample.
 - $T$ is the total variance: $\bar{U}+B+\frac{B}{m}$ = 
 $\bar{U}+\left(1+\frac{1}{m}\right) B$, where $\frac{B}{m}$ is called the simulation error: the extra simulation variance caused by the fact that $\bar{Q}$ itself is based on finite m
 
-- $\lambda$ is the proportion of the variation attributable to the missing data: $\frac{B+\frac{B}{m}}{T}$.
+- $\lambda$ is the proportion of the variation attributable to the missing data: $\frac{B+\frac{B}{m}}{T}$. Interpret as "high" when $\lambda > .5$.
 
 - $r$ is the relative increase in variance due to nonresponse: $\frac{B+\frac{B}{m}}{\overline{U}} = \frac{\lambda}{1-\lambda}$. 
 
-- $\gamma$ is the fraction of information about  
-Q missing due to nonresponse. It's similar to $\lambda$, but adjusted for the finite number of imputations. You need the adjusted degrees of freedom to compute it, which is complicated, see https://stefvanbuuren.name/fimd/sec-whyandwhen.html.
+- $\gamma$ is the fraction of information about Q missing due to nonresponse. It's similar to $\lambda$, but adjusted for the finite number of imputations. Interpret as "modest" up to 0.2, 0.3 as “moderately large” and 0.5 as “high”. You need the adjusted degrees of freedom to compute it, which is complicated. See https://stefvanbuuren.name/fimd/sec-whyandwhen.html.
 
 
 # Session E
@@ -56,3 +55,19 @@ Q missing due to nonresponse. It's similar to $\lambda$, but adjusted for the fi
 Monotone imputation not often used, only with drop-out without replacement. JM is more generally used: joint modeling. Esitmate means and var-cov matrix and impute the data, estimate var-cov matrix again, impute again, ... (MCMC technique). But this technique is not very flexible and can be too strict (not reflecting all relations between variables that may be of interest in the complete-data analysis). 
 
 In MICE, FCS is used: fully conditional specification. Create model for the first variable with missingness based on the values (real or imputed) of all other variables. Do this for each column left to right. This is one iteration. After 5-10 iterations, a solution is reached (no influence of the initial values anymore). The downside is that we do not have a theoretical distribution for this joint distribution (only for linear regressions we get a multivariate normal). Therefore we cannot use computartional shortcuts.
+
+# Session G
+
+### Slide 113
+
+MICE is a kind of Gibbs sampler, so the rate of convergence is dependent on the correlations between iterations. The addition of noise (difference between predicted value (regression) and observed (pmm)) takes care of low correlations.
+
+<!-- Initial values?? -->
+
+### Slide 199
+
+Incompatibility: Potential problem in the algorithm when we specify variables independently of each other. Then it can never form a multivariate distribution. Theoretical requirement for Gibbs sampler is that there is a known distribution to converge to. MICE appears to be quite robust, as long as you model each variable well from the other variables.
+
+### Slide 125
+
+Congeniality: Problem arising because of relation between imputation model and complete-data model.
