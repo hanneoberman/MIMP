@@ -30,55 +30,61 @@ plot(pas.imp) #better!
 #######################
 
 # 4. post-processing
-meth <- make.method(boys)
-meth["tv"] <- "norm"
-post <- make.post(boys)
-post["tv"] <- "imp[[j]][, i] <- squeeze(imp[[j]][, i], c(1, 25))"
-imp <- mice(boys, 
+meth <- make.method(boys) #get the meth mat
+meth["tv"] <- "norm" #change to bayesian stochastic regression
+post <- make.post(boys) #creat post proc matrix
+post["tv"] <- "imp[[j]][, i] <- squeeze(imp[[j]][, i], c(1, 25))" #insert rules: between 1 and 25
+# note: the inserted text means that for each iteration (imp{[[j]]), the value in column i should be between 1 and 25
+# correction: j is the variable that is currently imputed, i is the iteration (because column in imp$imp contents)
+# nb: squeeze does not censor/truncate/replace by min/max, it actually pushes the entire distribution more to the center
+imp <- mice(boys, #impute
             meth = meth, 
             post = post, 
             print = FALSE)
 
 # 5. compare
-imp.pmm <- mice(boys, print=FALSE)
-# table(complete(imp)$tv)
-table(complete(imp.pmm)$tv)
-densityplot(imp, ~tv)
-tv <- c(complete(imp.pmm)$tv, complete(imp)$tv)
-used.method <- rep(c("pmm", "norm"), each = nrow(boys))
-tvm <- data.frame(tv = tv, method = used.method)
-histogram( ~tv | method, data = tvm, nint = 25)
+imp.pmm <- mice(boys, print=FALSE) #do regular imputation to compare
+#table(complete(imp)$tv) #too large to look at
+table(complete(imp.pmm)$tv) #all observed values
+densityplot(imp, ~tv) #look at distributions of observed and imputed data
+tv <- c(complete(imp.pmm)$tv, complete(imp)$tv) #create new object with data and method specified
+used.method <- rep(c("pmm", "norm"), each = nrow(boys)) #attach method
+tvm <- data.frame(tv = tv, method = used.method) #combine
+histogram( ~tv | method, data = tvm, nint = 25) #see different distributions
+# note: the post-processed norm is way more plausible! And has more realistic spread/distribution
 
-# 6.
-miss <- is.na(imp$data$bmi)
-xyplot(imp, bmi ~ I (wgt / (hgt / 100)^2),
+# 6. ratios
+miss <- is.na(imp$data$bmi) #missingness indicator
+xyplot(imp, bmi ~ I (wgt / (hgt / 100)^2), #plot relation between observed and imputed bmi
        na.groups = miss, cex = c(0.8, 1.2), pch = c(1, 20),
        ylab = "BMI (kg/m2) Imputed", xlab = "BMI (kg/m2) Calculated")
+# note: the relation between hgt, wgt and bmi is not preserved in the imputed values
 
-
-# 7.
-meth <- make.method(boys)
-meth["bmi"] <- "~ I(wgt / (hgt / 100)^2)"
-imp <- mice(boys, 
+# 7. passive imp again
+meth <- make.method(boys) #get method matrix
+meth["bmi"] <- "~ I(wgt / (hgt / 100)^2)" #impose relation
+imp <- mice(boys, #impute, but do not fix pred matrix for circularity
             meth = meth, 
             print=FALSE)
-# 8. 
-xyplot(imp, bmi ~ I(wgt / (hgt / 100)^2), na.groups = miss,
+# 8. eval
+xyplot(imp, bmi ~ I(wgt / (hgt / 100)^2), na.groups = miss, #plot again
        cex = c(1, 1), pch = c(1, 20),
        ylab = "BMI (kg/m2) Imputed", xlab = "BMI (kg/m2) Calculated")
-plot(imp, c("bmi"))
+# note: now they're neatly on the line, BUT very unplausible. why?
+plot(imp, c("bmi")) #terrible convergence!
 
 
 # 9.
-pred <- make.predictorMatrix(boys)
-pred[c("hgt", "wgt"), "bmi"] <- 0
-pred
+pred <- make.predictorMatrix(boys) #now fix the pred mat
+pred[c("hgt", "wgt"), "bmi"] <- 0 #remove dependencies
+pred #check that it worked
 imp <-mice(boys, 
            meth = meth, 
            pred = pred, 
-           print = FALSE)
-xyplot(imp, bmi ~ I(wgt / (hgt / 100)^2), na.groups = miss,
+           print = FALSE) #impute again with correct pred mat
+xyplot(imp, bmi ~ I(wgt / (hgt / 100)^2), na.groups = miss, #plot again and be happy
        cex=c(1, 1), pch=c(1, 20),
        ylab="BMI (kg/m2) Imputed", xlab="BMI (kg/m2) Calculated")
-plot(imp, c("bmi"))
+plot(imp, c("bmi")) #yay better convergence, although trending? Increase iteration nr?
+# note: according to the practical, all is well now
 

@@ -31,12 +31,9 @@ LOCF means last observation carried forward.
 
 - $\bar{U}_l$ is the is the variance in the estimate, more specifically the variance-covariance matrix of $\hat{Q}$ obtained for the $l$-th imputation
 
-- $\bar{U}$ is the average of the complete-data variances: $\frac{1}{m} \sum_{\ell=1}^{m} \bar{U}_{\ell}$. It's the variance caused by the fact that we are taking a sample
-rather than the entire population. This is the conventional
-statistical measure of variability.
+- $\bar{U}$ is the average of the complete-data variances: $\frac{1}{m} \sum_{\ell=1}^{m} \bar{U}_{\ell}$. It's the variance caused by the fact that we are taking a sample rather than the entire population. This is the conventional statistical measure of variability.
 
-- $B$ is the vVariance between the m complete-data estimates: $\frac{1}{m-1} \sum_{\ell=1}^{m}\left(\hat{Q}_{\ell}-\bar{Q}\right)\left(\hat{Q}_{\ell}-\bar{Q}\right)^{\prime}$. It's the extra variance caused by the fact that there are missing
-values in the sample.
+- $B$ is the variance between the m complete-data estimates: $\frac{1}{m-1} \sum_{\ell=1}^{m}\left(\hat{Q}_{\ell}-\bar{Q}\right)\left(\hat{Q}_{\ell}-\bar{Q}\right)^{\prime}$. It's the extra variance caused by the fact that there are missing values in the sample.
 
 - $T$ is the total variance: $\bar{U}+B+\frac{B}{m}$ = 
 $\bar{U}+\left(1+\frac{1}{m}\right) B$, where $\frac{B}{m}$ is called the simulation error: the extra simulation variance caused by the fact that $\bar{Q}$ itself is based on finite m
