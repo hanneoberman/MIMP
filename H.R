@@ -74,7 +74,7 @@ xyplot(imp, bmi ~ I(wgt / (hgt / 100)^2), na.groups = miss, #plot again
 plot(imp, c("bmi")) #terrible convergence!
 
 
-# 9.
+# 9. fix circularity
 pred <- make.predictorMatrix(boys) #now fix the pred mat
 pred[c("hgt", "wgt"), "bmi"] <- 0 #remove dependencies
 pred #check that it worked
@@ -83,7 +83,8 @@ imp <-mice(boys,
            pred = pred, 
            print = FALSE) #impute again with correct pred mat
 xyplot(imp, bmi ~ I(wgt / (hgt / 100)^2), na.groups = miss, #plot again and be happy
-       cex=c(1, 1), pch=c(1, 20),
+# note: I is used to compute this separately from the rest of the model! here, the () is sufficient, but coding habits should be I() instead of just ()
+      cex=c(1, 1), pch=c(1, 20),
        ylab="BMI (kg/m2) Imputed", xlab="BMI (kg/m2) Calculated")
 plot(imp, c("bmi")) #yay better convergence, although trending? Increase iteration nr?
 # note: according to the practical, all is well now
