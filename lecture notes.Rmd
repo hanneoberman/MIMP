@@ -49,3 +49,10 @@ $\bar{U}+\left(1+\frac{1}{m}\right) B$, where $\frac{B}{m}$ is called the simula
 Q missing due to nonresponse. It's similar to $\lambda$, but adjusted for the finite number of imputations. You need the adjusted degrees of freedom to compute it, which is complicated, see https://stefvanbuuren.name/fimd/sec-whyandwhen.html.
 
 
+# Session E
+
+### Slide 104
+
+Monotone imputation not often used, only with drop-out without replacement. JM is more generally used: joint modeling. Esitmate means and var-cov matrix and impute the data, estimate var-cov matrix again, impute again, ... (MCMC technique). But this technique is not very flexible and can be too strict (not reflecting all relations between variables that may be of interest in the complete-data analysis). 
+
+In MICE, FCS is used: fully conditional specification. Create model for the first variable with missingness based on the values (real or imputed) of all other variables. Do this for each column left to right. This is one iteration. After 5-10 iterations, a solution is reached (no influence of the initial values anymore). The downside is that we do not have a theoretical distribution for this joint distribution (only for linear regressions we get a multivariate normal). Therefore we cannot use computartional shortcuts.
