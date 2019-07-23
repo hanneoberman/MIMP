@@ -70,4 +70,29 @@ Incompatibility: Potential problem in the algorithm when we specify variables in
 
 ### Slide 125
 
-Congeniality: Problem arising because of relation between imputation model and complete-data model.
+Congeniality: Problem arising from relation between imputation model and complete-data model. The imputation model cannot be smaller (less flexible) than the complete-data model. However, "the more the better" does not always hold. See practical (session H).
+
+### Slide 135
+
+MAR/ignorability assumption: if we fit a model for the top cases (without missingness in Y), it is similar to the model on the bottom cases (with missings in Y) in the data set where the data are sorted based on missingness in Y (left lower corner) and all Xs are observed.
+
+### Slide 137
+
+Recipe for MICE:
+
+- Include all variables that appear in the complete-data model, including transformations and interactions.
+
+- In addition, include the variables that are related to the nonresponse.
+
+- In addition, include variables that explain a considerable amount of variance (external information that is informative for the missing cells to get more precise results).
+
+- Remove from the variables selected in steps 2 and 3 those variables that have too many missing values within the subgroup of incomplete cases (if the NAs of these values are in the same row as the NAs you're trying to impute).
+
+### Slide 139
+
+JAV: just another variable will give linear dependencies because we 'copy' the others into a transformation. Problem is that the ratio is imputed without the deterministic relation known.
+
+Passive imputation is generally better because the relation is specified inside the imputations: use the tilde to do this. But aactually, none is recommended.
+
+Substantive model methods (smcfsc) appear to be much better than others. Also called model-based imputation.
+
