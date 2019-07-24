@@ -87,9 +87,9 @@ Recipe for MICE:
 
 ### Slide 139
 
-JAV: just another variable will give linear dependencies because we 'copy' the others into a transformation. Problem is that the ratio is imputed without the deterministic relation known.
+- JAV: just another variable will give linear dependencies because we 'copy' the others into a transformation. Problem is that the ratio is imputed without the deterministic relation known.
 
-Passive imputation is generally better because the relation is specified inside the imputations: use the tilde to do this. But aactually, none is recommended.
+- Passive imputation is generally better because the relation is specified inside the imputations: use the tilde to do this. But aactually, none is recommended.
 
-Substantive model methods (smcfsc) appear to be much better than others. Also called model-based imputation.
+- Substantive model methods (smcfsc) appear to be much better than others. Also called model-based imputation.
 
