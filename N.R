@@ -96,7 +96,7 @@ densityplot(imp2) ####### interpret?? #####
 imp4 <- mice(popNCR[, -1], print = F) #rerum with defaults
 
 # 18 eval
-densityplot(imp4) # imputations follow the shape of the observed data.
+densityplot(imp4) # imputations follow the shape of the observed data (peaks).
 
 # 20. iccs again
 data.frame(vars      = names(popNCR[c(6, 7, 5)]), 
@@ -115,6 +115,8 @@ data.frame(vars      = names(popNCR[c(6, 7, 5)]),
            orig      = c(icc(aov(popular ~ as.factor(class), popular)), 
                          icc(aov(popteach ~ as.factor(class), popular)), 
                          icc(aov(texp ~ as.factor(class), popular))))
+
+#####
 
 # 21. two-level normal model with heterogeneous within group variances
 ini <- mice(popNCR2, maxit = 0) #get mats
@@ -150,7 +152,7 @@ lines(density(complete(imp4)$popular), col = "green", lwd = 2)  #PMM
 # same!
 
 # 24. all different methods
-ini <- mice(popNCR3, maxit = 0)
+ini <- mice(popNCR3, maxit = 0) #get mats
 pred <- ini$pred
 pred["extrav", ] <- c(0, -2, 0, 2, 2, 2, 2)  #2l.norm
 pred["sex", ] <- c(0, -2, 1, 0, 1, 1, 1)  #2l.bin
@@ -160,7 +162,18 @@ pred["popteach", ] <- c(0, -2, 2, 2, 1, 2, 0)  #2l.lmer
 meth <- ini$meth
 meth <- c("", "", "2l.norm", "2l.bin", "2lonly.mean", "2l.pan", "2l.lmer")
 imp7 <- mice(popNCR3, pred = pred, meth = meth, print = FALSE)
+# note: error message (boundary (singular) fit see ?issingular) means the parameters are on the boundary of the feasible parameter space: variances of one or more linear combinations of effects are (close to) zero.
+# 25. eval
+plot(imp7) #no convergence yet?
+imp7.b <- mice.mids(imp7, maxit = 20, print = FALSE) #add some it
+plot(imp7.b) #see they did converge
+densityplot(imp7) #see biasses due to MNAR
+stripplot(imp7) #looks very reasonably
 
-
-  
-  
+# 26. now all pmm
+pmmdata <- popNCR3
+pmmdata$class <- as.factor(popNCR3$class)
+imp8 <- mice(pmmdata, m = 5, print = FALSE)
+head(imp8$loggedEvents)
+tail(imp8$loggedEvents) #texp has been excluded as a predictor in 90 instances.
+# note: this is to be expected, because when class is added as a factor (categorical variable) to the model, a seperate model will be fitted for each class. In each of these models, observed texp is a constant and, hence, will automatically be removed by mice to avoid estimation problems because of a redundant parameter.
